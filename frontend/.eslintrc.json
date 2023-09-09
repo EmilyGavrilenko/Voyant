@@ -3,7 +3,10 @@
     "plugins": ["prettier"],
     "rules": {
         // "prettier/prettier": "error",
-        "quotes": ["error", "single"]
+        "quotes": ["error", "single"],
+        "no-unused-vars": "off",
+        "react/react-in-jsx-scope": "off",
+        "react/jsx-uses-react": "off"
     },
     "parserOptions": {
         "ecmaVersion": 2021,
