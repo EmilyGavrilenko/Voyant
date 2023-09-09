@@ -5,7 +5,7 @@ const Navbar = () => {
     return (
         <nav className='navbar'>
             <div className='glassmorphism'></div>
-            <h1 className='navbar-title'>My Navbar</h1>
+            <h1 className='navbar-title'>Voyant</h1>
         </nav>
     );
 };
