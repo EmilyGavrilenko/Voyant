@@ -7,6 +7,7 @@ import Landing from 'components/Landing';
 import Navbar from 'components/core/Navbar';
 import SignIn from 'components/authentication/SignIn';
 import SignUp from 'components/authentication/SignUp';
+import WorldMap from 'components/map/WorldMap';
 
 const clerkPubKey = process.env.REACT_APP_CLERK_PUBLISHABLE_KEY;
 
@@ -24,18 +25,18 @@ function ClerkProviderWithRoutes() {
     return (
         <ClerkProvider publishableKey={clerkPubKey} navigate={(to) => navigate(to)}>
             <Routes>
-                <Route path='/' element={<Landing />} />
+                {/* <Route path='/' element={<Landing />} /> */}
                 <Route path='/sign-in/*' element={<SignIn />} />
                 <Route path='/sign-up/*' element={<SignUp />} />
                 <Route
-                    path='/protected'
+                    path='/'
                     element={
                         <>
                             <SignedIn>
-                                <Landing />
+                                <WorldMap />
                             </SignedIn>
                             <SignedOut>
-                                <RedirectToSignIn />
+                                <Landing />
                             </SignedOut>
                         </>
                     }
