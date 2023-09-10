@@ -5,6 +5,8 @@ const DEFAULT_COUNTRY_OPTIONS = [
     { value: 'USA', label: 'United States', flag: '🇺🇸' },
     { value: 'CAN', label: 'Canada', flag: '🇨🇦' },
     { value: 'GBR', label: 'United Kingdom', flag: '🇬🇧' },
+    { value: 'FRA', label: 'France', flag: '🇫🇷' },
+    { value: 'UAE', label: 'United Arab Emirates', flag: '🇦🇪' },
 ];
 
 function CountrySelector() {
@@ -54,7 +56,8 @@ function CountrySelector() {
             '&:hover': {
                 borderColor: '#ced4da',
             },
-            width: '400px',
+            // width: '400px',
+            // justifyContent: 'center',
         }),
         multiValue: (provided) => ({
             ...provided,
@@ -79,20 +82,19 @@ function CountrySelector() {
     };
 
     return (
-        <div>
-            <Select
-                isMulti
-                isSearchable
-                name='countries'
-                options={countryOptions}
-                className='basic-multi-select'
-                classNamePrefix='select'
-                onChange={handleChange}
-                value={selectedCountries}
-                formatOptionLabel={formatOptionLabel}
-                styles={customStyles}
-            />
-        </div>
+        <Select
+            isMulti
+            isSearchable
+            name='countries'
+            placeholder='United States, Canada, United Kingdom...'
+            options={countryOptions}
+            className='basic-multi-select'
+            classNamePrefix='select'
+            onChange={handleChange}
+            value={selectedCountries}
+            formatOptionLabel={formatOptionLabel}
+            styles={customStyles}
+        />
     );
 }
 

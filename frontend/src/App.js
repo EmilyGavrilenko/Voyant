@@ -12,6 +12,7 @@ import SignUp from 'components/authentication/SignUp';
 import WorldMap from 'components/map/WorldMap';
 import Countries from 'components/map/Countries';
 import TravelHome from 'components/travels/TravelHome';
+import NewCountry from 'components/travels/NewCountry';
 
 const clerkPubKey = process.env.REACT_APP_CLERK_PUBLISHABLE_KEY;
 
@@ -35,7 +36,8 @@ function ClerkProviderWithRoutes() {
                 <Route path='/sign-in/*' element={<SignIn />} />
                 <Route path='/sign-up/*' element={<SignUp />} />
                 <Route path='/countries' element={<Countries />} />
-                <Route path='/travels' element={<TravelHome />} />
+                <Route path='/passport' element={<TravelHome />} />
+                <Route path='/new-country' element={<NewCountry />} />
                 <Route
                     path='/'
                     element={

@@ -1,14 +1,17 @@
 import React from 'react';
 import { Button } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
+import { useNavigate } from 'react-router-dom';
 
 const NewCountryButton = () => {
-    const handleButtonClick = () => {
-        console.log('New Country button clicked');
+    const navigate = useNavigate();
+
+    const handleNewCountry = () => {
+        navigate('/new-country', { firstCountry: false });
     };
 
     return (
-        <Button variant='contained' color='primary' onClick={handleButtonClick} endIcon={<AddIcon />}>
+        <Button variant='contained' color='primary' onClick={handleNewCountry} endIcon={<AddIcon />}>
             New Country
         </Button>
     );

@@ -9,7 +9,7 @@ const Navbar = () => {
             <SignedIn>
                 <div style={{ display: 'flex', alignItems: 'center' }}>
                     <a className='link' href='/countries'>
-                        My travels
+                        My passport
                     </a>
                     <div style={{ width: 20 }} />
                     <UserButton afterSignOutUrl='/' />
