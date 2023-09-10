@@ -26,16 +26,6 @@ const Landing = () => {
                     Your browser does not support the video tag.
                 </video>
             </div>
-
-            {/* Text Container */}
-            <div style={{ padding: '20px', textAlign: 'center' }}>
-                <h1>Your Text Here</h1>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum.
-                    Donec in efficitur leo. Sed nec venenatis odio. Quisque a nibh finibus, gravida tellus vitae, varius
-                    tellus. Quisque a nibh finibus, gravida tellus vitae, varius tellus.
-                </p>
-            </div>
         </div>
     );
 };

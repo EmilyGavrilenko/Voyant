@@ -29,6 +29,12 @@
     z-index: 2;
 }
 
+.navbar-text {
+    font-size: 18px;
+    color: white;
+    z-index: 2;
+}
+
 .link {
     text-decoration: none;
     font-size: 20px;

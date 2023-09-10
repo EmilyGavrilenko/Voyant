@@ -7,7 +7,13 @@ const Navbar = () => {
             <div className='glassmorphism'></div>
             <h1 className='navbar-title'>Voyant</h1>
             <SignedIn>
-                <UserButton />
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <a className='link' href='/countries'>
+                        My travels
+                    </a>
+                    <div style={{ width: 20 }} />
+                    <UserButton afterSignOutUrl='/' />
+                </div>
             </SignedIn>
             <SignedOut>
                 <a className='link' href='/sign-in'>
