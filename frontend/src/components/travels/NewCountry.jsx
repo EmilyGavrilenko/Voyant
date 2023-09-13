@@ -1,29 +1,48 @@
-import { useState, useEffect } from 'react';
+import { useState, useMemo } from 'react';
 import { Container, Typography, Button } from '@mui/material';
 import CountrySelector from './CountrySelector';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import { useParams, useNavigate } from 'react-router-dom';
+
+// backend methods
+import { useQuery } from '@tanstack/react-query';
+import { fetchUserCountries } from 'api/passport';
 import { fetchCountries } from 'api/country';
 
 const NewCountry = () => {
     const params = useParams();
     const firstCountry = params.firstCountry;
-    const [countryOptions, setCountryOptions] = useState([]);
     const [selectedCountries, setSelectedCountries] = useState([]);
 
-    useEffect(() => {
-        const getCountries = async () => {
-            let _countries = await fetchCountries();
-            _countries = _countries.map((country) => {
-                country.value = country.name;
-                country.label = country.name;
-                return country;
-            });
-            console.log(_countries);
-            setCountryOptions(_countries);
-        };
-        getCountries();
-    }, []);
+    // Fetch all the user's countries
+    const { data: countries, isLoading: isLoading } = useQuery({
+        queryKey: ['1', 'countries'],
+        queryFn: () => fetchUserCountries(),
+        cacheTime: 24 * 60 * 60 * 1000, // 24 hours
+    });
+
+    // Fetch all the countries in the DB
+    const { data: countryOptionsRaw, isLoading: isLoading2 } = useQuery({
+        queryKey: ['all countries'],
+        queryFn: () => fetchCountries(),
+        cacheTime: 24 * 60 * 60 * 1000, // 24 hours
+    });
+
+    const alreadySelected = useMemo(() => countries?.map((country) => country.country.name), [countries]);
+
+    const countryOptions = useMemo(
+        () =>
+            countryOptionsRaw
+                ?.filter((country) => {
+                    return country.name !== null && alreadySelected.indexOf(country.name) === -1;
+                })
+                .map((country) => ({
+                    ...country,
+                    value: country.name,
+                    label: country.name,
+                })),
+        [countryOptionsRaw]
+    );
 
     return (
         <div>
@@ -35,7 +54,7 @@ const NewCountry = () => {
                 <div style={{ width: '100%', display: 'flex', justifyContent: 'center', zoom: 1.2, marginTop: 40 }}>
                     <div style={{ width: '600px' }}>
                         <CountrySelector
-                            countryOptions={countryOptions}
+                            countryOptions={countryOptions ?? []}
                             selectedCountries={selectedCountries}
                             setSelectedCountries={setSelectedCountries}
                         />

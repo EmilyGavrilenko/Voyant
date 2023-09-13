@@ -2,6 +2,7 @@ import React from 'react';
 // import { ClerkProvider } from '@clerk/clerk-react';
 import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
 import { ClerkProvider, SignedIn, SignedOut, RedirectToSignIn } from '@clerk/clerk-react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from 'style/Theme';
 
@@ -15,12 +16,15 @@ import TravelHome from 'components/travels/TravelHome';
 import NewCountry from 'components/travels/NewCountry';
 
 const clerkPubKey = process.env.REACT_APP_CLERK_PUBLISHABLE_KEY;
+const queryClient = new QueryClient();
 
 function App() {
     return (
         <BrowserRouter>
             <ThemeProvider theme={theme}>
-                <ClerkProviderWithRoutes />
+                <QueryClientProvider client={queryClient}>
+                    <ClerkProviderWithRoutes />
+                </QueryClientProvider>
             </ThemeProvider>
         </BrowserRouter>
     );

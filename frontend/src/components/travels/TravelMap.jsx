@@ -34,7 +34,12 @@ const TravelMap = ({ width, height }) => {
         });
     }, []);
 
-    return <div id='map' style={{ width: width ?? '50vw', height: height ?? '50vh' }}></div>;
+    return (
+        <div
+            id='map'
+            style={{ width: width ?? '50vw', height: height ?? '50vh', position: 'fixed', top: 60, right: 0 }}
+        ></div>
+    );
 };
 
 export default TravelMap;

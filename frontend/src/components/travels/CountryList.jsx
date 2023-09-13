@@ -1,15 +1,6 @@
-import React, { useState } from 'react';
 import { Box, Typography, Grid } from '@mui/material';
 import CountryCard from './CountryCard';
 import NewCountryButton from './NewCountryButton';
-
-const DEFAULT_COUNTRIES = [
-    { value: 'USA', label: 'United States', flag: '🇺🇸' },
-    { value: 'CAN', label: 'Canada', flag: '🇨🇦' },
-    { value: 'GBR', label: 'United Kingdom', flag: '🇬🇧' },
-    { value: 'FRA', label: 'France', flag: '🇫🇷' },
-    { value: 'UAE', label: 'United Arab Emirates', flag: '🇦🇪' },
-];
 
 const CountryStats = () => {
     return (
@@ -22,9 +13,7 @@ const CountryStats = () => {
     );
 };
 
-const CountryList = () => {
-    const [countryData, setCountryData] = useState(DEFAULT_COUNTRIES);
-
+const CountryList = ({ countries }) => {
     return (
         <Box sx={{ width: '50vw' }}>
             <Box sx={{ padding: 5, justifyContent: 'flex-start' }}>
@@ -34,8 +23,8 @@ const CountryList = () => {
                 </Typography>
                 <NewCountryButton />
                 <Grid container spacing={3} sx={{ marginTop: 0 }}>
-                    {countryData.map((country) => (
-                        <CountryCard key={country.value} name={country.label} flag={country.flag} />
+                    {countries?.map((data) => (
+                        <CountryCard key={data.country.iso3} name={data.country.name} flag={data.country.flag} />
                     ))}
                 </Grid>
             </Box>

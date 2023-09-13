@@ -27,7 +27,7 @@ class CountryVisitViewSet(CreateModelMixin, ListModelMixin, GenericViewSet):
     def get_permissions(self):
         if self.request.method in ['POST']:
             return [IsAdminUser()]
-        return [IsAuthenticated()]
+        return []
 
     def get_queryset(self):
         return CountryVisit.objects.select_related('country').filter(user_id=self.kwargs['user_id'])
@@ -38,6 +38,15 @@ class CountryVisitViewSet(CreateModelMixin, ListModelMixin, GenericViewSet):
 
     def create(self, request, *args, **kwargs):
         is_list = isinstance(request.data, list)
+            # Check that none of the country ids are already in the database
+        if is_list:
+            country_ids = [item.get('country_id') for item in request.data]
+            if CountryVisit.objects.filter(user_id=kwargs['user_id'], country_id__in=country_ids).exists():
+                return Response(status=status.HTTP_400_BAD_REQUEST)
+        else:
+            if CountryVisit.objects.filter(user_id=kwargs['user_id'], country_id=request.data.get('country_id')).exists():
+                return Response(status=status.HTTP_400_BAD_REQUEST)
+
         serializer = AddCountryVisitSerializer(data=request.data, many=is_list, context=self.get_serializer_context())
         serializer.is_valid(raise_exception=True)
         serializer.save()

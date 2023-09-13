@@ -7,4 +7,4 @@ from .serializers import CountrySerializer
 class CountryViewSet(ListModelMixin, GenericViewSet): # Only supports the list operation
     queryset = Country.objects.all()
     serializer_class = CountrySerializer 
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
