@@ -1,11 +1,29 @@
+import { useState, useEffect } from 'react';
 import { Container, Typography, Button } from '@mui/material';
 import CountrySelector from './CountrySelector';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import { useParams, useNavigate } from 'react-router-dom';
+import { fetchCountries } from 'api/country';
 
 const NewCountry = () => {
     const params = useParams();
     const firstCountry = params.firstCountry;
+    const [countryOptions, setCountryOptions] = useState([]);
+    const [selectedCountries, setSelectedCountries] = useState([]);
+
+    useEffect(() => {
+        const getCountries = async () => {
+            let _countries = await fetchCountries();
+            _countries = _countries.map((country) => {
+                country.value = country.name;
+                country.label = country.name;
+                return country;
+            });
+            console.log(_countries);
+            setCountryOptions(_countries);
+        };
+        getCountries();
+    }, []);
 
     return (
         <div>
@@ -16,7 +34,11 @@ const NewCountry = () => {
                 </Typography>
                 <div style={{ width: '100%', display: 'flex', justifyContent: 'center', zoom: 1.2, marginTop: 40 }}>
                     <div style={{ width: '600px' }}>
-                        <CountrySelector />
+                        <CountrySelector
+                            countryOptions={countryOptions}
+                            selectedCountries={selectedCountries}
+                            setSelectedCountries={setSelectedCountries}
+                        />
                         <GetStartedButton firstCountry={firstCountry} />
                     </div>
                 </div>

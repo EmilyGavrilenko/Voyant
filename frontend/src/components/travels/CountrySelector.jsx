@@ -1,35 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useMemo, memo } from 'react';
 import Select from 'react-select';
 
-const DEFAULT_COUNTRY_OPTIONS = [
-    { value: 'USA', label: 'United States', flag: '🇺🇸' },
-    { value: 'CAN', label: 'Canada', flag: '🇨🇦' },
-    { value: 'GBR', label: 'United Kingdom', flag: '🇬🇧' },
-    { value: 'FRA', label: 'France', flag: '🇫🇷' },
-    { value: 'UAE', label: 'United Arab Emirates', flag: '🇦🇪' },
-];
-
-function CountrySelector() {
-    const [selectedCountries, setSelectedCountries] = useState([]);
-    const [countryOptions, setCountryOptions] = useState(DEFAULT_COUNTRY_OPTIONS);
-
-    // useEffect(() => {
-    //     fetch('https://restcountries.com/v3.1/all')
-    //         .then((response) => response.json())
-    //         .then((data) => {
-    //             console.log(data[0]);
-    //             const countries = data.map((country) => ({
-    //                 value: country.name.common,
-    //                 label: country.name.common,
-    //                 flag: country.flag,
-    //                 lat: country.latlng[0],
-    //                 lng: country.latlng[1],
-    //             }));
-    //             console.log(countries);
-    //             countries.sort((a, b) => (a.label > b.label ? 1 : -1));
-    //             setCountryOptions(countries);
-    //         });
-    // });
+function CountrySelector({ countryOptions, selectedCountries, setSelectedCountries }) {
+    const memoizedOptions = useMemo(() => countryOptions, [countryOptions]);
 
     const formatOptionLabel = ({ label, flag }) => (
         <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -56,8 +29,6 @@ function CountrySelector() {
             '&:hover': {
                 borderColor: '#ced4da',
             },
-            // width: '400px',
-            // justifyContent: 'center',
         }),
         multiValue: (provided) => ({
             ...provided,
@@ -78,8 +49,12 @@ function CountrySelector() {
     };
 
     const handleChange = (selectedOptions) => {
+        console.log('selectedOptions', selectedOptions);
+        console.log('memoizedOptions', memoizedOptions);
         setSelectedCountries(selectedOptions);
     };
+
+    console.log('countryOptions', countryOptions.length);
 
     return (
         <Select
@@ -87,7 +62,7 @@ function CountrySelector() {
             isSearchable
             name='countries'
             placeholder='United States, Canada, United Kingdom...'
-            options={countryOptions}
+            options={memoizedOptions}
             className='basic-multi-select'
             classNamePrefix='select'
             onChange={handleChange}
@@ -98,4 +73,4 @@ function CountrySelector() {
     );
 }
 
-export default CountrySelector;
+export default memo(CountrySelector);
