@@ -1,7 +1,10 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
+from rest_framework import routers
 
-# URLConf
+router = routers.DefaultRouter()
+router.register('', views.CountryVisitViewSet)
+
 urlpatterns = [
-    path('hello/', views.hello_world)
+    path('', include(router.urls))
 ]
