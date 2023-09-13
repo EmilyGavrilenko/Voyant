@@ -8,7 +8,7 @@ const Navbar = () => {
             <h1 className='navbar-title'>Voyant</h1>
             <SignedIn>
                 <div style={{ display: 'flex', alignItems: 'center' }}>
-                    <a className='link' href='/countries'>
+                    <a className='link' href='/passport'>
                         My passport
                     </a>
                     <div style={{ width: 20 }} />

@@ -17,17 +17,17 @@ class UserViewSet(ListModelMixin, GenericViewSet):
 # /users/<user_id>/countries/
 class CountryVisitViewSet(CreateModelMixin, ListModelMixin, GenericViewSet):
     serializer_class = CountryVisitSerializer 
-    permission_classes = [IsAuthenticated]
+    permission_classes = []
 
     def get_serializer_class(self):
         if self.request.method in ['POST']:
             return AddCountryVisitSerializer
         return CountryVisitSerializer
 
-    def get_permissions(self):
-        if self.request.method in ['POST']:
-            return [IsAdminUser()]
-        return []
+    # def get_permissions(self):
+    #     if self.request.method in ['POST']:
+    #         return [IsAdminUser()]
+    #     return []
 
     def get_queryset(self):
         return CountryVisit.objects.select_related('country').filter(user_id=self.kwargs['user_id'])
@@ -37,6 +37,7 @@ class CountryVisitViewSet(CreateModelMixin, ListModelMixin, GenericViewSet):
     
 
     def create(self, request, *args, **kwargs):
+        print(request.data)
         is_list = isinstance(request.data, list)
             # Check that none of the country ids are already in the database
         if is_list:

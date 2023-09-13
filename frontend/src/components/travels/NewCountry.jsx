@@ -1,18 +1,22 @@
 import { useState, useMemo } from 'react';
-import { Container, Typography, Button } from '@mui/material';
+import { Container, Typography, Button, CircularProgress } from '@mui/material';
+import { useParams, useNavigate } from 'react-router-dom';
 import CountrySelector from './CountrySelector';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
-import { useParams, useNavigate } from 'react-router-dom';
+import SuccessPopup from 'components/core/SuccessPopup';
 
 // backend methods
 import { useQuery } from '@tanstack/react-query';
-import { fetchUserCountries } from 'api/passport';
+import { fetchUserCountries, addUserCountries } from 'api/passport';
 import { fetchCountries } from 'api/country';
 
 const NewCountry = () => {
     const params = useParams();
+    const navigate = useNavigate();
+
     const firstCountry = params.firstCountry;
     const [selectedCountries, setSelectedCountries] = useState([]);
+    const [success, setSuccess] = useState(false);
 
     // Fetch all the user's countries
     const { data: countries, isLoading: isLoading } = useQuery({
@@ -58,26 +62,59 @@ const NewCountry = () => {
                             selectedCountries={selectedCountries}
                             setSelectedCountries={setSelectedCountries}
                         />
-                        <GetStartedButton firstCountry={firstCountry} />
+                        <GetStartedButton
+                            firstCountry={firstCountry}
+                            selectedCountries={selectedCountries}
+                            setSuccess={setSuccess}
+                        />
                     </div>
                 </div>
+                <SuccessPopup
+                    handleClose={() => navigate('/passport')}
+                    successMsg={'Successfully added country(s)'}
+                    success={success}
+                />
             </Container>
         </div>
     );
 };
 
 // Generate a get started button
-const GetStartedButton = ({ firstCountry }) => {
-    const navigate = useNavigate();
+const GetStartedButton = ({ firstCountry, selectedCountries, setSuccess }) => {
+    const [saving, setSaving] = useState(false);
+    const buttonText = firstCountry ? 'Visualize' : 'Add Countries';
 
-    const handleNext = () => {
-        navigate('/passport');
+    const handleNext = async () => {
+        const countries = selectedCountries.map((country) => ({
+            country_id: country['iso3'],
+        }));
+        setSaving(true);
+        let added = await addUserCountries(countries);
+        setSaving(false);
+        setSuccess();
+        if (added) {
+            setSuccess(true);
+        } else {
+            alert('Error adding countries');
+        }
     };
 
     return (
         <div style={{ width: '100%', display: 'flex', justifyContent: 'flex-end', marginTop: 40 }}>
-            <Button variant='contained' color='primary' onClick={handleNext} endIcon={<NavigateNextIcon />}>
-                {firstCountry ? 'Visualize' : 'Add Countries'}
+            <Button
+                variant='contained'
+                color='primary'
+                onClick={handleNext}
+                endIcon={saving ? null : <NavigateNextIcon />}
+            >
+                {saving ? (
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                        Saving
+                        <CircularProgress sx={{ color: 'white', ml: 1 }} size={18} />
+                    </div>
+                ) : (
+                    buttonText
+                )}
             </Button>
         </div>
     );

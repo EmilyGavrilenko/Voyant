@@ -2,22 +2,27 @@ import { Box, Typography, Grid } from '@mui/material';
 import CountryCard from './CountryCard';
 import NewCountryButton from './NewCountryButton';
 
-const CountryStats = () => {
+const CountryStats = ({ numCountries, numContinents }) => {
     return (
         <Box>
             <Typography variant='h5' sx={{ marginBottom: 1 }}>
                 My Stats
             </Typography>
-            <Typography>5 Countries, 2 Continents</Typography>
+            <Typography>
+                {numCountries} Countries, {numContinents} Continents
+            </Typography>
         </Box>
     );
 };
 
 const CountryList = ({ countries }) => {
+    const numCountries = countries?.length;
+    const numContinents = new Set(countries?.map((country) => country.country.continent)).size;
+
     return (
         <Box sx={{ width: '50vw' }}>
             <Box sx={{ padding: 5, justifyContent: 'flex-start' }}>
-                <CountryStats />
+                <CountryStats numCountries={numCountries} numContinents={numContinents} />
                 <Typography variant='h5' sx={{ marginBottom: 1, marginTop: 2 }}>
                     Where you&apos;ve been
                 </Typography>
