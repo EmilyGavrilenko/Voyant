@@ -36,7 +36,7 @@ const TravelHome = () => {
             ) : (
                 <div style={{ display: 'flex' }}>
                     <CountryList countries={countries} />
-                    <TravelMap width='50vw' height='calc(100vh - 60px)' />
+                    <TravelMap width='50vw' height='calc(100vh - 60px)' countries={countries} />
                 </div>
             )}
         </div>

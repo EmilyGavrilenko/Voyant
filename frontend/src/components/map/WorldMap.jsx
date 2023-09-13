@@ -10,7 +10,6 @@ const Map = () => {
         mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_KEY;
         const map = new mapboxgl.Map({
             container: 'map',
-            // style: 'mapbox://styles/mapbox/light-v11',
             style: 'mapbox://styles/emilee11/clmci63rr014t01rfc83mg2lt',
             center: [-102.049723, 36.963329],
             zoom: 2,
