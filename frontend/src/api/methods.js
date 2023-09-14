@@ -37,17 +37,26 @@ export const getMethod = async (backend_url, headers, error, returnFirst) => {
         });
 };
 
-// Constructor to send a POST request
+export const patchMethod = async (backend_url, body, headers, error, returnData) => {
+    return await modifyMethod('PATCH', backend_url, body, headers, error, returnData);
+};
+
 export const postMethod = async (backend_url, body, headers, error, returnData) => {
+    return await modifyMethod('POST', backend_url, body, headers, error, returnData);
+};
+
+// Constructor to send a POST | PUT | PATCH request
+export const modifyMethod = async (method_type, backend_url, body, headers, error, returnData) => {
     if (!headers) return false;
 
     return await fetch(backend_url, {
-        method: 'POST',
+        method: method_type,
         headers: headers,
         body: JSON.stringify(body),
     })
         .then(async (res) => {
             try {
+                console.log(res.status);
                 let data = await res.json();
                 if (res.status === 204) {
                     // HTTP 204 No Content success status (no matches)

@@ -1,8 +1,8 @@
 import { Card, CardContent, Box, Grid, Typography } from '@mui/material';
 import moment from 'moment';
 
-const CountryCard = ({ country, date, navigateToCountry }) => {
-    date = new Date();
+const CountryCard = ({ country, navigateToCountry }) => {
+    let date = country.date_visited;
 
     return (
         <Grid item sx={{ width: '300px' }}>
@@ -11,11 +11,9 @@ const CountryCard = ({ country, date, navigateToCountry }) => {
                     <Typography variant='h2'>{country.flag}</Typography>
                     <Box sx={{ marginBottom: 1.5, ml: 1.5 }}>
                         <Typography variant='h6'>{country.name}</Typography>
-                        {date && (
-                            <Typography variant='body2' color='textSecondary' component='p'>
-                                Visited: {moment(date).format('MMM. YYYY')}
-                            </Typography>
-                        )}
+                        <Typography variant='body2' color='textSecondary' component='p'>
+                            {date ? 'Visited: ' + moment(date).format('MMM. YYYY') : country.continent}
+                        </Typography>
                     </Box>
                 </CardContent>
             </Card>

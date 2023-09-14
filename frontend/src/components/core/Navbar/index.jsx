@@ -4,7 +4,7 @@ import { SignedIn, SignedOut, UserButton } from '@clerk/clerk-react';
 const Navbar = () => {
     return (
         <nav className='navbar'>
-            <div className='glassmorphism'></div>
+            {/* <div className='glassmorphism'></div> */}
             <h1 className='navbar-title'>Voyant</h1>
             <SignedIn>
                 <div style={{ display: 'flex', alignItems: 'center' }}>

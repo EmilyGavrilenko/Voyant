@@ -1,4 +1,4 @@
-import { getMethod, postMethod, deleteMethod } from 'api/methods';
+import { getMethod, postMethod, deleteMethod, patchMethod } from 'api/methods';
 import { getGeneralHeader } from 'api/auth';
 
 // Fetch user's countries
@@ -31,4 +31,11 @@ export const deleteCountry = async (country_id) => {
     const headers = getGeneralHeader();
     const error = 'Error deleting country: ' + country_id;
     return await deleteMethod(backend_url, {}, headers, error);
-}
+};
+
+export const saveCountry = async (country_id, country) => {
+    const backend_url = `${process.env.REACT_APP_BACKEND_URL}/passport/users/2/countries/` + country_id + '/';
+    const headers = getGeneralHeader();
+    const error = 'Error saving country: ' + country_id;
+    return await patchMethod(backend_url, country, headers, error);
+};

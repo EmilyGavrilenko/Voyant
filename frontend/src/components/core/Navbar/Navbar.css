@@ -5,10 +5,12 @@
     right: 0;
     height: 60px;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+    padding-left: 40px;
+    padding-right: 40px;
     align-items: center;
     z-index: 1;
-    max-width: '1000px';
+    width: '100%';
     background: #081c2c;
 }
 

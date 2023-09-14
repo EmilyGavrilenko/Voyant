@@ -22,7 +22,6 @@ const CountryList = ({ countries }) => {
     const numContinents = new Set(countries?.map((country) => country.country.continent)).size;
 
     const navigateToCountry = (country) => {
-        console.log(country);
         navigate(`/country/${country['iso3']}`, { state: { countryData: country } });
     };
 
@@ -38,7 +37,7 @@ const CountryList = ({ countries }) => {
                     {countries?.map((data) => (
                         <CountryCard
                             key={data.country.iso3}
-                            country={data.country}
+                            country={{ ...data, ...data.country }}
                             navigateToCountry={navigateToCountry}
                         />
                     ))}

@@ -14,6 +14,8 @@ const TravelHome = () => {
         cacheTime: 24 * 60 * 60 * 1000, // 24 hours
     });
 
+    console.log('countries', countries);
+
     return (
         <div>
             <div style={{ height: '60px', backgroundColor: '#081c2c' }} />

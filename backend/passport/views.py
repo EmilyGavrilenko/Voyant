@@ -31,7 +31,7 @@ class CountryVisitViewSet(ModelViewSet):
     #     return []
 
     def get_queryset(self):
-        return CountryVisit.objects.select_related('country').filter(user_id=self.kwargs['user_id'])
+        return CountryVisit.objects.select_related('country').filter(user_id=self.kwargs['user_id']).order_by('-date_visited', '-country__name')
 
     def get_serializer_context(self):
         return {'user_id': self.kwargs['user_id'] }
