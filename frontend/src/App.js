@@ -51,10 +51,10 @@ function ClerkProviderWithRoutes() {
                     element={
                         <>
                             <SignedIn>
-                                <WorldMap />
+                                <TravelHome />
                             </SignedIn>
                             <SignedOut>
-                                <Landing />
+                                <WorldMap />
                             </SignedOut>
                         </>
                     }

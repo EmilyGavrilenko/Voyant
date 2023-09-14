@@ -23,74 +23,74 @@ const Map = () => {
             });
 
             // USA
-            map.loadImage(USA, (error, image) => {
-                if (error) throw error;
+            // map.loadImage(USA, (error, image) => {
+            //     if (error) throw error;
 
-                map.addImage('usa-flag-pattern', image);
-                map.addLayer({
-                    id: 'usa-background',
-                    type: 'fill',
-                    source: 'countries',
-                    'source-layer': 'country_boundaries',
-                    paint: {
-                        'fill-pattern': 'usa-flag-pattern',
-                        'fill-opacity': 0.9,
-                    },
-                    filter: ['==', 'iso_3166_1_alpha_3', 'USA'],
-                });
-            });
+            //     map.addImage('usa-flag-pattern', image);
+            //     map.addLayer({
+            //         id: 'usa-background',
+            //         type: 'fill',
+            //         source: 'countries',
+            //         'source-layer': 'country_boundaries',
+            //         paint: {
+            //             'fill-pattern': 'usa-flag-pattern',
+            //             'fill-opacity': 0.9,
+            //         },
+            //         filter: ['==', 'iso_3166_1_alpha_3', 'USA'],
+            //     });
+            // });
 
-            // UK
-            map.loadImage(UK, (error, image) => {
-                // map.loadImage('https://www.worldometers.info/img/flags/uk-flag.gif', (error, image) => {
-                if (error) throw error;
-                map.addImage('uk-flag-pattern', image);
-                map.addLayer({
-                    id: 'uk-background',
-                    type: 'fill',
-                    source: 'countries',
-                    'source-layer': 'country_boundaries',
-                    paint: {
-                        'fill-pattern': 'uk-flag-pattern',
-                        'fill-opacity': 0.9,
-                    },
-                    filter: ['==', 'iso_3166_1_alpha_3', 'GBR'],
-                });
-            });
+            // // UK
+            // map.loadImage(UK, (error, image) => {
+            //     // map.loadImage('https://www.worldometers.info/img/flags/uk-flag.gif', (error, image) => {
+            //     if (error) throw error;
+            //     map.addImage('uk-flag-pattern', image);
+            //     map.addLayer({
+            //         id: 'uk-background',
+            //         type: 'fill',
+            //         source: 'countries',
+            //         'source-layer': 'country_boundaries',
+            //         paint: {
+            //             'fill-pattern': 'uk-flag-pattern',
+            //             'fill-opacity': 0.9,
+            //         },
+            //         filter: ['==', 'iso_3166_1_alpha_3', 'GBR'],
+            //     });
+            // });
 
-            // RUS
-            map.loadImage(RUS, (error, image) => {
-                if (error) throw error;
-                map.addImage('rus-flag-pattern', image);
-                map.addLayer({
-                    id: 'rus-background',
-                    type: 'fill',
-                    source: 'countries',
-                    'source-layer': 'country_boundaries',
-                    paint: {
-                        'fill-pattern': 'rus-flag-pattern',
-                        'fill-opacity': 0.9,
-                    },
-                    filter: ['==', 'iso_3166_1_alpha_3', 'RUS'],
-                });
-            });
+            // // RUS
+            // map.loadImage(RUS, (error, image) => {
+            //     if (error) throw error;
+            //     map.addImage('rus-flag-pattern', image);
+            //     map.addLayer({
+            //         id: 'rus-background',
+            //         type: 'fill',
+            //         source: 'countries',
+            //         'source-layer': 'country_boundaries',
+            //         paint: {
+            //             'fill-pattern': 'rus-flag-pattern',
+            //             'fill-opacity': 0.9,
+            //         },
+            //         filter: ['==', 'iso_3166_1_alpha_3', 'RUS'],
+            //     });
+            // });
 
-            // ESP
-            map.loadImage(ESP, (error, image) => {
-                if (error) throw error;
-                map.addImage('esp-flag-pattern', image);
-                map.addLayer({
-                    id: 'esp-background',
-                    type: 'fill',
-                    source: 'countries',
-                    'source-layer': 'country_boundaries',
-                    paint: {
-                        'fill-pattern': 'esp-flag-pattern',
-                        'fill-opacity': 0.9,
-                    },
-                    filter: ['==', 'iso_3166_1_alpha_3', 'ESP'],
-                });
-            });
+            // // ESP
+            // map.loadImage(ESP, (error, image) => {
+            //     if (error) throw error;
+            //     map.addImage('esp-flag-pattern', image);
+            //     map.addLayer({
+            //         id: 'esp-background',
+            //         type: 'fill',
+            //         source: 'countries',
+            //         'source-layer': 'country_boundaries',
+            //         paint: {
+            //             'fill-pattern': 'esp-flag-pattern',
+            //             'fill-opacity': 0.9,
+            //         },
+            //         filter: ['==', 'iso_3166_1_alpha_3', 'ESP'],
+            //     });
+            // });
 
             map.on('style.load', () => {
                 map.setFog({}); // Set the default atmosphere style

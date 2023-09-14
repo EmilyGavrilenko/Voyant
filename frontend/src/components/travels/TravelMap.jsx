@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import mapboxgl from 'mapbox-gl';
 
 const TravelMap = ({ width, height, countries }) => {
+    console.log('countries', countries);
     useEffect(() => {
         mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_KEY;
         const map = new mapboxgl.Map({
@@ -101,7 +102,7 @@ const TravelMap = ({ width, height, countries }) => {
 
             spinGlobe();
         });
-    }, []);
+    }, [countries]);
 
     return (
         <div
