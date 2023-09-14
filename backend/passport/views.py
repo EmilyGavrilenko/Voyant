@@ -1,7 +1,7 @@
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.mixins import CreateModelMixin, ListModelMixin 
-from rest_framework.viewsets import GenericViewSet
+from rest_framework.mixins import CreateModelMixin, ListModelMixin
+from rest_framework.viewsets import GenericViewSet, ModelViewSet
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from .models import CountryVisit
 from .serializers import UserSerializer, CountryVisitSerializer, AddCountryVisitSerializer
@@ -15,9 +15,10 @@ class UserViewSet(ListModelMixin, GenericViewSet):
     lookup_field = 'id'
     
 # /users/<user_id>/countries/
-class CountryVisitViewSet(CreateModelMixin, ListModelMixin, GenericViewSet):
+class CountryVisitViewSet(ModelViewSet):
     serializer_class = CountryVisitSerializer 
     permission_classes = []
+    lookup_field = 'country_id'
 
     def get_serializer_class(self):
         if self.request.method in ['POST']:

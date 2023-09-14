@@ -1,4 +1,5 @@
 import { Box, Typography, Grid } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import CountryCard from './CountryCard';
 import NewCountryButton from './NewCountryButton';
 
@@ -16,8 +17,14 @@ const CountryStats = ({ numCountries, numContinents }) => {
 };
 
 const CountryList = ({ countries }) => {
+    const navigate = useNavigate();
     const numCountries = countries?.length;
     const numContinents = new Set(countries?.map((country) => country.country.continent)).size;
+
+    const navigateToCountry = (country) => {
+        console.log(country);
+        navigate(`/country/${country['iso3']}`, { state: { countryData: country } });
+    };
 
     return (
         <Box sx={{ width: '50vw' }}>
@@ -29,7 +36,11 @@ const CountryList = ({ countries }) => {
                 <NewCountryButton />
                 <Grid container spacing={3} sx={{ marginTop: 0 }}>
                     {countries?.map((data) => (
-                        <CountryCard key={data.country.iso3} name={data.country.name} flag={data.country.flag} />
+                        <CountryCard
+                            key={data.country.iso3}
+                            country={data.country}
+                            navigateToCountry={navigateToCountry}
+                        />
                     ))}
                 </Grid>
             </Box>

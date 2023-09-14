@@ -89,19 +89,13 @@ export const deleteMethod = async (backend_url, headers, error) => {
     })
         .then(async (res) => {
             try {
-                let data = await res.json();
+                console.log(res.status);
                 if (res.status === 204) {
-                    // HTTP 204 No Content success status (no matches)
-                    return false;
+                    return true;
                 }
                 if (res.status === 200) {
                     return true;
                 } else {
-                    console.error(
-                        error +
-                            ': ' +
-                            (typeof data.msg === 'string' ? data.msg : data.sqlMessage ?? data.msg?.sqlMessage)
-                    );
                     return false;
                 }
             } catch (err) {

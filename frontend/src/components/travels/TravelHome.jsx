@@ -5,6 +5,7 @@ import CountryList from './CountryList';
 // backend methods
 import { useQuery } from '@tanstack/react-query';
 import { fetchUserCountries } from 'api/passport';
+import LoadingSpinner from 'components/core/LoadingSpinner';
 
 const TravelHome = () => {
     // Fetch all the user's countries
@@ -18,21 +19,7 @@ const TravelHome = () => {
         <div>
             <div style={{ height: '60px', backgroundColor: '#081c2c' }} />
             {isLoading ? (
-                <div
-                    style={{
-                        width: '100%',
-                        height: 'calc(100vh - 60px)',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                    }}
-                >
-                    <Typography variant='h5' sx={{ mb: 3 }}>
-                        Loading passport...
-                    </Typography>
-                    <CircularProgress />
-                </div>
+                <LoadingSpinner label='Loading passport...' />
             ) : (
                 <div style={{ display: 'flex' }}>
                     <CountryList countries={countries} />

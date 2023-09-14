@@ -21,7 +21,6 @@ const TravelMap = ({ width, height, countries }) => {
 
             // Color countries
             countries?.forEach((country) => {
-                console.log('country', country);
                 map.addLayer({
                     id: country.country['iso3'],
                     type: 'fill',
