@@ -1,12 +1,12 @@
 import React from 'react';
-import GlobeVideo from 'assets/spinning-globe.mov';
+// import GlobeVideo frxom 'assets/spinning-globe.mov';
 
 const Landing = () => {
     return (
         <div style={{ overflow: 'hidden' }}>
             {/* Video Container */}
             <div style={{ width: '100vw', height: '100vh', overflow: 'hidden', position: 'relative' }}>
-                <video
+                {/* <video
                     style={{
                         position: 'absolute',
                         top: '50%',
@@ -24,7 +24,7 @@ const Landing = () => {
                 >
                     <source src={GlobeVideo} type='video/mp4' />
                     Your browser does not support the video tag.
-                </video>
+                </video> */}
             </div>
         </div>
     );
