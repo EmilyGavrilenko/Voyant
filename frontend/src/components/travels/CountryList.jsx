@@ -1,5 +1,6 @@
 import { Box, Typography, Grid } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import pluralize from 'pluralize';
 import CountryCard from './CountryCard';
 import NewCountryButton from './NewCountryButton';
 import NewImageButton from './NewImageButton';
@@ -11,7 +12,8 @@ const CountryStats = ({ numCountries, numContinents }) => {
                 My Stats
             </Typography>
             <Typography>
-                {numCountries} Countries, {numContinents} Continents
+                {numCountries} {pluralize('Country', numCountries)} , {numContinents}{' '}
+                {pluralize('Continents', numContinents)}
             </Typography>
         </Box>
     );

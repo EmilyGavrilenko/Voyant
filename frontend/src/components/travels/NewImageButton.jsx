@@ -7,7 +7,7 @@ const NewImageButton = ({ sx, shouldNavigate, handleNewImages }) => {
     const navigate = useNavigate();
     const handleSelectImage = (event) => {
         const files = event.target.files;
-        if (shouldNavigate) navigate('/upload-images', { files });
+        if (shouldNavigate) navigate('/upload-images', { state: { files } });
         else handleNewImages(files);
     };
 

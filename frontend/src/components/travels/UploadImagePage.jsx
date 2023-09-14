@@ -10,14 +10,11 @@ import { uploadPhotoToS3, labelImageRoboflow } from 'api/image';
 
 function Country() {
     const location = useLocation();
-    const [images, setImages] = useState(location?.state?.files ?? []);
+    const [images, setImages] = useState(location?.state?.files ? Array.from(location?.state?.files) : []);
     const [labeling, setLabeling] = useState(false);
     const [labelImageIndex, setLabelImageIndex] = useState(false);
     const [labeledImageIndexes, setLabeledImageIndexes] = useState([]);
     const [imageLabels, setImageLabels] = useState({});
-
-    console.log('images', images);
-    console.log('imageLabels', imageLabels);
 
     const handleNewImages = (files) => {
         setImages([...images, ...files]);
@@ -45,7 +42,6 @@ function Country() {
         if (!predictions || predictions.length === 0) {
             setImageLabels({ ...imageLabels, [imgIndex]: { prediction: null, imgUrl } });
             setLabeledImageIndexes([...labeledImageIndexes, imgIndex]);
-            alert('No country flags identified');
         } else {
             processImageLabels(predictions, imgUrl, imgIndex);
         }

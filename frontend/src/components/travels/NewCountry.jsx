@@ -4,6 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import CountrySelector from './CountrySelector';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import SuccessPopup from 'components/core/SuccessPopup';
+import { useUser } from '@clerk/clerk-react';
 
 // backend methods
 import { useQuery } from '@tanstack/react-query';
@@ -14,20 +15,22 @@ const NewCountry = () => {
     const params = useParams();
     const navigate = useNavigate();
 
+    const { isLoaded, user } = useUser();
     const firstCountry = params.firstCountry;
     const [selectedCountries, setSelectedCountries] = useState([]);
     const [success, setSuccess] = useState(false);
 
     // Fetch all the user's countries
     const { data: countries, isLoading: isLoading } = useQuery({
-        queryKey: ['1', 'countries'],
-        queryFn: () => fetchUserCountries(),
+        queryKey: [user?.id, 'countries'],
+        queryFn: () => fetchUserCountries(user?.id),
         cacheTime: 24 * 60 * 60 * 1000, // 24 hours
+        enabled: Boolean(isLoaded && user?.id),
     });
 
     // Fetch all the countries in the DB
     const { data: countryOptionsRaw, isLoading: isLoading2 } = useQuery({
-        queryKey: ['all countries'],
+        queryKey: ['countries'],
         queryFn: () => fetchCountries(),
         cacheTime: 24 * 60 * 60 * 1000, // 24 hours
     });
@@ -66,6 +69,7 @@ const NewCountry = () => {
                             firstCountry={firstCountry}
                             selectedCountries={selectedCountries}
                             setSuccess={setSuccess}
+                            user_id={user?.id}
                         />
                     </div>
                 </div>
@@ -80,7 +84,7 @@ const NewCountry = () => {
 };
 
 // Generate a get started button
-const GetStartedButton = ({ firstCountry, selectedCountries, setSuccess }) => {
+const GetStartedButton = ({ firstCountry, selectedCountries, setSuccess, user_id }) => {
     const [saving, setSaving] = useState(false);
     const buttonText = firstCountry ? 'Visualize' : 'Add Countries';
 
@@ -89,7 +93,7 @@ const GetStartedButton = ({ firstCountry, selectedCountries, setSuccess }) => {
             country_id: country['iso3'],
         }));
         setSaving(true);
-        let added = await addUserCountries(countries);
+        let added = await addUserCountries(countries, user_id);
         setSaving(false);
         setSuccess();
         if (added) {

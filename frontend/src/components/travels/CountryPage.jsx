@@ -7,6 +7,7 @@ import ImageIcon from '@mui/icons-material/Image';
 import SuccessPopup from 'components/core/SuccessPopup';
 import MonthYearPicker from 'components/core/MonthYearPicker';
 import { formatDate } from 'utils/datetime';
+import { useUser } from '@clerk/clerk-react';
 
 // backend methods
 import { fetchCountryData, deleteCountry, saveCountry } from 'api/passport';
@@ -15,6 +16,8 @@ function Country() {
     const params = useParams();
     const navigate = useNavigate();
     const location = useLocation();
+    const { user } = useUser();
+    const user_id = user?.id;
 
     const [country, setCountry] = useState(location?.state?.countryData);
     const [success, setSuccess] = useState(false);
@@ -25,18 +28,18 @@ function Country() {
 
     useEffect(() => {
         async function getCountryData() {
-            let data = await fetchCountryData(country_id);
+            let data = await fetchCountryData(country_id, user_id);
             data = { ...data, ...data.country };
             delete data['country'];
             setCountry(data);
         }
-        if (!country) {
+        if (!country && user_id) {
             getCountryData();
         }
-    }, []);
+    }, [user_id]);
 
     const onDelete = async () => {
-        let success = await deleteCountry(country_id);
+        let success = await deleteCountry(country_id, user_id);
         if (success) {
             setSuccess(true);
         } else {
@@ -51,7 +54,7 @@ function Country() {
 
     const onSave = async () => {
         console.log(updatedFields);
-        let success = await saveCountry(country_id, updatedFields);
+        let success = await saveCountry(country_id, updatedFields, user_id);
         console.log('success', success);
         if (success) {
             console.log({ ...country, ...updatedFields });

@@ -49,12 +49,8 @@ function CountrySelector({ countryOptions, selectedCountries, setSelectedCountri
     };
 
     const handleChange = (selectedOptions) => {
-        console.log('selectedOptions', selectedOptions);
-        console.log('memoizedOptions', memoizedOptions);
         setSelectedCountries(selectedOptions);
     };
-
-    console.log('countryOptions', countryOptions.length);
 
     return (
         <Select
