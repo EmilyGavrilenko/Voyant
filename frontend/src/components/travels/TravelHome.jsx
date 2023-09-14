@@ -1,4 +1,3 @@
-import { CircularProgress, Typography } from '@mui/material';
 import TravelMap from './TravelMap';
 import CountryList from './CountryList';
 
@@ -9,7 +8,7 @@ import LoadingSpinner from 'components/core/LoadingSpinner';
 
 const TravelHome = () => {
     // Fetch all the user's countries
-    const { data: countries, isLoading: isLoading } = useQuery({
+    const { data: countries } = useQuery({
         queryKey: ['1', 'countries'],
         queryFn: () => fetchUserCountries(),
         cacheTime: 24 * 60 * 60 * 1000, // 24 hours
@@ -18,7 +17,7 @@ const TravelHome = () => {
     return (
         <div>
             <div style={{ height: '60px', backgroundColor: '#081c2c' }} />
-            {isLoading ? (
+            {!countries ? (
                 <LoadingSpinner label='Loading passport...' />
             ) : (
                 <div style={{ display: 'flex' }}>

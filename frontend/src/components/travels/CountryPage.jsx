@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Button, Grid, Typography } from '@mui/material';
 import { Edit, Delete } from '@mui/icons-material';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import LoadingSpinner from 'components/core/LoadingSpinner';
 import ImageIcon from '@mui/icons-material/Image';
 import SuccessPopup from 'components/core/SuccessPopup';
@@ -12,14 +12,13 @@ import { fetchCountryData, deleteCountry } from 'api/passport';
 function Country() {
     const params = useParams();
     const navigate = useNavigate();
-    const [country, setCountry] = useState(params.countryData);
+    const location = useLocation();
+
+    const [country, setCountry] = useState(location?.state?.countryData);
     const [success, setSuccess] = useState(false);
 
-    console.log('params', params);
     let country_id = params.country_id;
 
-    console.log(country);
-    console.log(country_id);
     useEffect(() => {
         async function getCountryData() {
             let data = await fetchCountryData(country_id);
@@ -35,7 +34,7 @@ function Country() {
     const onDelete = async () => {
         let success = await deleteCountry(country_id);
         if (success) {
-            setSuccess(true)
+            setSuccess(true);
         } else {
             alert('Error deleting country');
         }
