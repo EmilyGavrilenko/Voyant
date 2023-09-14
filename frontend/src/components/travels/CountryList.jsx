@@ -2,6 +2,7 @@ import { Box, Typography, Grid } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import CountryCard from './CountryCard';
 import NewCountryButton from './NewCountryButton';
+import NewImageButton from './NewImageButton';
 
 const CountryStats = ({ numCountries, numContinents }) => {
     return (
@@ -33,6 +34,7 @@ const CountryList = ({ countries }) => {
                     Where you&apos;ve been
                 </Typography>
                 <NewCountryButton />
+                <NewImageButton sx={{ ml: 1 }} shouldNavigate />
                 <Grid container spacing={3} sx={{ marginTop: 0 }}>
                     {countries?.map((data) => (
                         <CountryCard

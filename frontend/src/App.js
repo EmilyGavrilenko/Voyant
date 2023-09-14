@@ -15,6 +15,7 @@ import Countries from 'components/map/Countries';
 import TravelHome from 'components/travels/TravelHome';
 import NewCountry from 'components/travels/NewCountry';
 import CountryPage from 'components/travels/CountryPage';
+import UploadImages from 'components/travels/UploadImagePage';
 
 const clerkPubKey = process.env.REACT_APP_CLERK_PUBLISHABLE_KEY;
 const queryClient = new QueryClient();
@@ -43,6 +44,7 @@ function ClerkProviderWithRoutes() {
                 <Route path='/countries' element={<Countries />} />
                 <Route path='/passport' element={<TravelHome />} />
                 <Route path='/new-country' element={<NewCountry />} />
+                <Route path='/upload-images' element={<UploadImages />} />
                 <Route path='/country/:country_id' element={<CountryPage />} />
                 <Route
                     path='/'
